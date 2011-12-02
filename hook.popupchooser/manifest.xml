@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hook name="popupchooser" label="Popup Window Plugin" description="Extends external select for popup windows">
+	<dependencies>
+	       <pluginResources pluginName="gui.ajax"/>
+	       <!-- Stream Wrapper Access -->
+	      <activePlugin pluginName="access.fs|access.ftp|access.demo|access.remote_fs"/>
+	</dependencies>
+	<registry_contributions>
+		<actions>
+			<!-- Override the ext_select action -->
+			<action name="ext_select">
+				<processing>
+					<clientCallback prepareModal="true"><![CDATA[
+							var userSelection = ajaxplorer.getUserSelection();
+							if((userSelection.isUnique() && !userSelection.hasDir()))
+							{
+								var fileName = userSelection.getUniqueFileName();
+								var selectorData = ajaxplorer.actionBar.selectorData;
+								if(selectorData.get('type') == "ckeditor"){
+									var ckData = selectorData.get('data');
+									if (ckData['CKEditorFuncNum']) {
+										var imagePath = fileName;
+										if(ckData['relative_path']){
+											imagePath = ckData['relative_path'] + fileName;
+										}
+										window.opener.CKEDITOR.tools.callFunction(ckData['CKEditorFuncNum'], imagePath);
+										window.close();
+									}
+								}
+								else if(selectorData.get('type') == "popup"){
+									var fileName = userSelection.getUniqueFileName();
+									var tmData = selectorData.get('data');
+									
+									var imagePath = fileName;
+									if(tmData['relative_path']){
+										imagePath = tmData['relative_path'] + fileName;
+									}
+									
+									window.opener.ajaxplorerPopupCallback(imagePath);
+									window.close();
+								}
+							}
+						]]></clientCallback>
+				</processing>
+			</action>
+			<!-- Override the back action to prevent logout -->
+			<action name="back">
+				<processing>
+					<clientCallback prepareModal="false"><![CDATA[
+							return false;
+						]]></clientCallback>
+				</processing>
+			</action>
+		</actions>
+	</registry_contributions>
+</hook>
