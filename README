@@ -31,7 +31,7 @@ To use this plugin:
 	}
 		
 	3) Create a function to popup the window:
-		-The externa;_selector_type options must be set to popup
+		-The external_selector_type options must be set to popup
 		-The relative_path parameter must be set and it must point to the ajaxplorer folder that stores your files
 	
 	function chooseFile(){
