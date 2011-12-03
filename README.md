@@ -1,3 +1,6 @@
+License
+=======
+
 Copyright (C) 2011 Scott Harwell
 
 This program is free software; you can redistribute it and/or
@@ -22,7 +25,9 @@ This is an attempt to create a plugin for Ajaxplorer that will allow you to crea
 How to Use
 ----------
 
-1. Place the hook.popupchooser in your ajaxsplorer plugin directory.
+Instructions assume use of jQuery on the host site.
+
+1. Place the hook.popupchooser folder in your ajaxsplorer plugin directory.
 2. In your javascript (either inline or the file you are using to define your functions) create a callback function.
 	-The function should be named 'ajaxplorerPopupCallback'
 	-The body of the function should do what you want with the image path (such as set an input value)
@@ -45,15 +50,12 @@ How to Use
 	
 Planned Features
 ----------------
-1. File type filtering
+- File type filtering
 
 
 CHANGE LOG
 ==========
 
-12/2/2011
----------
-
-###Ver .1###
+##12/2/2011 - Ver .1###
 
 Plugin created with simple abilities to select a file from a popup window and have the file path sent back to a callback function.
