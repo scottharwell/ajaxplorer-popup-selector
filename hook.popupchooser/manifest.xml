@@ -28,16 +28,33 @@
 									}
 								}
 								else if(selectorData.get('type') == "popup"){
-									var fileName = userSelection.getUniqueFileName();
 									var tmData = selectorData.get('data');
 									
-									var imagePath = fileName;
+									var filePath = fileName;
 									if(tmData['relative_path']){
-										imagePath = tmData['relative_path'] + fileName;
+										filePath = tmData['relative_path'] + fileName;
 									}
 									
-									window.opener.ajaxplorerPopupCallback(imagePath);
-									window.close();
+									if(typeof(tmData.filetypes) === "object"){
+										if(window.console) console.log(tmData.filetypes);
+										var match = false;
+										
+										for(var i = 0; i < tmData.filetypes.length; i++){
+											if(fileName.match(tmData.filetypes[i])){
+												match = true;
+											}
+										}
+										
+										if(match){
+											window.opener.ajaxplorerPopupCallback(filePath);
+											window.close();
+										} else {
+											alert('You did not select a valid file type');
+										}
+									} else {
+										window.opener.ajaxplorerPopupCallback(filePath);
+										window.close();
+									}
 								}
 							}
 						]]></clientCallback>

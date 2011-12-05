@@ -29,32 +29,35 @@ Instructions assume use of jQuery on the host site.
 
 1. Place the hook.popupchooser folder in your ajaxsplorer plugin directory.
 2. In your javascript (either inline or the file you are using to define your functions) create a callback function.
-	-The function should be named 'ajaxplorerPopupCallback'
-	-The body of the function should do what you want with the image path (such as set an input value)
+	- The function should be named 'ajaxplorerPopupCallback'
+	- The body of the function should do what you want with the image path (such as set an input value)
 
 	function ajaxplorerPopupCallback(filePath){
 		$('.imagepath').val(filePath);
 	}
 	
 3. Create a function to popup the window:
-	-The external_selector_type options must be set to popup
-	-The relative_path parameter must be set and it must point to the ajaxplorer folder that stores your files
+	- (Required) The external_selector_type options must be set to popup.
+	- (Required) The relative_path parameter must be set and it must point to the Ajaxplorer folder that stores your files.
+	- (Optional) The filetypes array can be set if you want to limit the file extensions that can be returned. For instance, if you want to limit the files that can be returned to common image types, then use the format &filetypes[0]=jpg&filetypes[1]=gif&filetypes[2]=png&filetypes[3]=jpeg. Omitting the filetypes in the URL will allow any file type to be returned to your callback function.
 	
 	function chooseFile(){
 		var fbWindow = window.open(
-		"/ajaxplorer/?external_selector_type=popup&relative_path=/files/",
+		"/ajaxplorer/?external_selector_type=popup&relative_path=/files/&filetypes[0]=jpg&filetypes[1]=gif&filetypes[2]=png&filetypes[3]=jpeg",
 		"ajaxplorer",
 		width=600,
 		height=500
 	);
-	
-Planned Features
-----------------
-- File type filtering
 
 
 CHANGE LOG
 ==========
+
+##12/4/2011 - Ver .2###
+
+- Added the ability to limit filetypes that can be returned through the `filetypes` array passed through the URL. 
+
+Open to feature suggestions through GitHub Wiki.
 
 ##12/2/2011 - Ver .1###
 
