@@ -31,12 +31,11 @@
 									var tmData = selectorData.get('data');
 									
 									var filePath = fileName;
-									if(tmData['relative_path']){
-										filePath = tmData['relative_path'] + fileName;
+									if(tmData.relative_path){
+										filePath = tmData.relative_path + fileName;
 									}
 									
 									if(typeof(tmData.filetypes) === "object"){
-										if(window.console) console.log(tmData.filetypes);
 										var match = false;
 										
 										for(var i = 0; i < tmData.filetypes.length; i++){
