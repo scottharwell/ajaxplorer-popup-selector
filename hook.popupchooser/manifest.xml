@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hook name="popupchooser" label="Popup Window Plugin" description="Extends external select for popup windows">
-	<dependencies>
-	       <pluginResources pluginName="gui.ajax"/>
-	       <!-- Stream Wrapper Access -->
-	      <activePlugin pluginName="access.fs|access.ftp|access.demo|access.remote_fs"/>
-	</dependencies>
+<ajxp_plugin name="popupchooser" enabled="true" label="CONF_MESSAGE[Popup Window Plugin]" description="CONF_MESSAGE[Extends external select for popup windows]" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../core.ajaxplorer/ajxp_registry.xsd">
 	<registry_contributions>
 		<actions>
 			<!-- Override the ext_select action -->
@@ -35,11 +30,13 @@
 										filePath = tmData.relative_path + fileName;
 									}
 									
-									if(typeof(tmData.filetypes) === "object"){
+									if(typeof(tmData.filetypes) !== "undefined"){
+										var fileTypesArr = tmData.filetypes.match(/([a-zA-Z])+/g);
+										
 										var match = false;
 										
-										for(var i = 0; i < tmData.filetypes.length; i++){
-											if(fileName.match(tmData.filetypes[i])){
+										for(var i = 0; i < fileTypesArr.length; i++){
+											if(fileName.match(fileTypesArr[i])){
 												match = true;
 											}
 										}
@@ -59,14 +56,11 @@
 						]]></clientCallback>
 				</processing>
 			</action>
-			<!-- Override the back action to prevent logout -->
 			<action name="back">
-				<processing>
-					<clientCallback prepareModal="false"><![CDATA[
-							return false;
-						]]></clientCallback>
-				</processing>
-			</action>
+				<pre_processing>
+					<!--<serverCallback methodName="filterUsersPref"></serverCallback>-->
+				</pre_processing>
+			</action>	
 		</actions>
 	</registry_contributions>
-</hook>
+</ajxp_plugin>
