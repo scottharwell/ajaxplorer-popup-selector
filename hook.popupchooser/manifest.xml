@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ajxp_plugin name="popupchooser" enabled="true" label="CONF_MESSAGE[Popup Window Plugin]" description="CONF_MESSAGE[Extends external select for popup windows]" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../core.ajaxplorer/ajxp_registry.xsd">
+<ajxp_plugin name="popupchooser" enabled="true" label="Popup Window Plugin" description="Extends external select for popup windows" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../core.ajaxplorer/ajxp_registry.xsd">
+	<dependencies>
+		<pluginResources pluginName="gui.ajax"/>
+		<!-- Stream Wrapper Access -->
+		<activePlugin pluginName="access.AJXP_STREAM_PROVIDER"/>		
+	</dependencies>
 	<registry_contributions>
 		<actions>
 			<!-- Override the ext_select action -->
 			<action name="ext_select">
 				<processing>
-					<clientCallback prepareModal="true"><![CDATA[
+					<clientCallback><![CDATA[
+							alert('test');
 							var userSelection = ajaxplorer.getUserSelection();
 							if((userSelection.isUnique() && !userSelection.hasDir()))
 							{
@@ -30,6 +36,7 @@
 										filePath = tmData.relative_path + fileName;
 									}
 									
+									if(window.console) console.log(tmData.filetypes);
 									if(typeof(tmData.filetypes) !== "undefined"){
 										var fileTypesArr = tmData.filetypes.match(/([a-zA-Z])+/g);
 										
@@ -56,9 +63,11 @@
 						]]></clientCallback>
 				</processing>
 			</action>
-			<action name="back">
+			<action name="logout" expireDefault="false">
 				<pre_processing>
-					<!--<serverCallback methodName="filterUsersPref"></serverCallback>-->
+					<clientCallback><![CDATA[
+						return false;
+					]]></clientCallback>
 				</pre_processing>
 			</action>	
 		</actions>
