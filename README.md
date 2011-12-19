@@ -20,14 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 INSTRUCTIONS
 ============
 
-This is an attempt to create a plugin for Ajaxplorer that will allow you to create a form button to find a file on your server. The purpose of this plugin is to create something similar to CKFinder's "popup" functionality with Ajaxplorer.
+This is an attempt to create a plugin for AjaxPlorer that will allow you to create a form button to find a file on your server. The purpose of this plugin is to create something similar to CKFinder's "popup" functionality with AjaxPlorer.
 
 How to Use
 ----------
 
 Instructions assume use of jQuery on the host site.
 
-1. Place the hook.popupchooser folder in your ajaxsplorer plugin directory.
+1. Place the hook.popupchooser folder in your AjaXplorer plugin directory.
 2. In your javascript (either inline or the file you are using to define your functions) create a callback function.
 	- The function should be named 'ajaxplorerPopupCallback'
 	- The body of the function should do what you want with the image path (such as set an input value)
@@ -52,6 +52,11 @@ Instructions assume use of jQuery on the host site.
 
 CHANGE LOG
 ==========
+
+##12/19/2011 - Ver .3###
+
+- Confirmed working with AjaxPlorer 4.0
+- Added functionality to prevent logout button from showing so that users do not accidentally logout when the popup window is open. This is most helpful when authentication is integrated between a CMS and AjaXplorer.
 
 ##12/4/2011 - Ver .2###
 
