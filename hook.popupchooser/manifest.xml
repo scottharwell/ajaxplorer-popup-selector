@@ -11,7 +11,6 @@
 			<action name="ext_select">
 				<processing>
 					<clientCallback><![CDATA[
-							alert('test');
 							var userSelection = ajaxplorer.getUserSelection();
 							if((userSelection.isUnique() && !userSelection.hasDir()))
 							{
@@ -52,7 +51,8 @@
 											window.opener.ajaxplorerPopupCallback(filePath);
 											window.close();
 										} else {
-											alert('You did not select a valid file type');
+											modal.displayMessage('ERROR', 'You did not select a valid file type');
+											//alert('You did not select a valid file type');
 										}
 									} else {
 										window.opener.ajaxplorerPopupCallback(filePath);
