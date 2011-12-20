@@ -39,11 +39,11 @@ Instructions assume use of jQuery on the host site.
 3. Create a function to popup the window:
 	- (Required) The external_selector_type options must be set to popup.
 	- (Required) The relative_path parameter must be set and it must point to the Ajaxplorer folder that stores your files.
-	- (Optional) The filetypes array can be set if you want to limit the file extensions that can be returned. For instance, if you want to limit the files that can be returned to common image types, then use the format &filetypes[0]=jpg&filetypes[1]=gif&filetypes[2]=png&filetypes[3]=jpeg. Omitting the filetypes in the URL will allow any file type to be returned to your callback function.
+	- (Optional) The filetypes string can be set if you want to limit the file extensions that can be returned. For instance, if you want to limit the files that can be returned to common image types, then use the format &filetypes=jpeg+jpg+gif+png. Omitting the filetypes in the URL will allow any file type to be returned to your callback function.
 	
 	function chooseFile(){
 		var fbWindow = window.open(
-		"/ajaxplorer/?external_selector_type=popup&relative_path=/files/&filetypes[0]=jpg&filetypes[1]=gif&filetypes[2]=png&filetypes[3]=jpeg",
+		"/ajaxplorer/?external_selector_type=popup&relative_path=/files/&filetypes=jpeg+jpg+gif+png",
 		"ajaxplorer",
 		width=600,
 		height=500
