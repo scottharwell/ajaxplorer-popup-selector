@@ -27,7 +27,8 @@ How to Use
 
 Instructions assume use of jQuery on the host site.
 
-1. Place the hook.popupchooser folder in your AjaXplorer plugin directory.
+1. Place the contents of this repository into a folder called hook.popupchooser in your AjaXplorer plugin directory.
+	- If your main project is using Git, then you can submodule this repo into the main repo for easy updates.
 2. In your javascript (either inline or the file you are using to define your functions) create a callback function.
 	- The function should be named 'ajaxplorerPopupCallback'
 	- The body of the function should do what you want with the image path (such as set an input value)
