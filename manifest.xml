@@ -12,32 +12,33 @@
 				<processing>
 					<clientCallback><![CDATA[
 							var userSelection = ajaxplorer.getUserSelection();
+							var selectorData = ajaxplorer.actionBar.selectorData;
+							var passedData = selectorData.get('data');
+							var multi = passedData.allow_multi;
+							
 							if((userSelection.isUnique() && !userSelection.hasDir()))
 							{
 								var fileName = userSelection.getUniqueFileName();
-								var selectorData = ajaxplorer.actionBar.selectorData;
 								if(selectorData.get('type') == "ckeditor"){
-									var ckData = selectorData.get('data');
-									if (ckData['CKEditorFuncNum']) {
+									if (passedData['CKEditorFuncNum']) {
 										var imagePath = fileName;
-										if(ckData['relative_path']){
-											imagePath = ckData['relative_path'] + fileName;
+										if(passedData['relative_path']){
+											imagePath = passedData['relative_path'] + fileName;
 										}
-										window.opener.CKEDITOR.tools.callFunction(ckData['CKEditorFuncNum'], imagePath);
+										window.opener.CKEDITOR.tools.callFunction(passedData['CKEditorFuncNum'], imagePath);
 										window.close();
 									}
 								}
+								
 								else if(selectorData.get('type') == "popup"){
-									var tmData = selectorData.get('data');
 									
 									var filePath = fileName;
-									if(tmData.relative_path){
-										filePath = tmData.relative_path + fileName;
+									if(passedData.relative_path){
+										filePath = passedData.relative_path + fileName;
 									}
 									
-									if(window.console) console.log(tmData.filetypes);
-									if(typeof(tmData.filetypes) !== "undefined"){
-										var fileTypesArr = tmData.filetypes.match(/([a-zA-Z])+/g);
+									if(typeof(passedData.filetypes) !== "undefined"){
+										var fileTypesArr = passedData.filetypes.match(/([a-zA-Z]+)/g);
 										
 										var match = false;
 										
@@ -52,13 +53,50 @@
 											window.close();
 										} else {
 											modal.displayMessage('ERROR', 'You did not select a valid file type');
-											//alert('You did not select a valid file type');
 										}
 									} else {
 										window.opener.ajaxplorerPopupCallback(filePath);
 										window.close();
 									}
 								}
+							}
+							else if(typeof(multi) !== "undefined" && multi == "true" && !userSelection.hasDir()){
+								var items = userSelection.getSelectedNodes();
+								if(items && items.length > 0){
+									var fileTypesArr = passedData.filetypes.match(/([a-zA-Z]+)/gi);
+									var paths = [];
+									
+									for(var i in items){
+										if(items[i] instanceof AjxpNode && items[i].isLeaf()){
+											var filePath = items[i].getPath();
+											if(typeof(fileTypesArr) == "object" && fileTypesArr.length > 0){
+												for(var j = 0; j < fileTypesArr.length; j++){
+													var ext = fileTypesArr[j];
+													var patt = new RegExp(ext);
+													var match = filePath.match(patt);
+													if(match){
+														paths.push(filePath);
+														break;
+													}
+												}
+											}
+											else{
+												paths.push(filePath);
+											}
+										}
+									}
+									if(paths.length > 0){
+										window.opener.ajaxplorerPopupCallback(paths);
+										window.close();
+									} else {
+										modal.displayMessage('ERROR', 'No valid files selected.');
+									}
+								} else {
+									modal.displayMessage('ERROR', 'Error selecting files.');
+								}
+							}
+							else if(typeof(multi) === "undefined" || multi == "false" && !userSelection.hasDir()){
+								modal.displayMessage('ERROR', 'Unable to select multiple files.');
 							}
 						]]></clientCallback>
 				</processing>
