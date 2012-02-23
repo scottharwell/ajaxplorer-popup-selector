@@ -32,6 +32,7 @@ Instructions assume use of jQuery on the host site.
 2. In your javascript (either inline or the file you are using to define your functions) create a callback function.
 	- The function should be named `ajaxplorerPopupCallback`
 	- The body of the function should do what you want with the returned data (such as set an input value).
+
 ```javascript
 function ajaxplorerPopupCallback(data){
 	if(typeof(data) === "string"){
@@ -42,6 +43,7 @@ function ajaxplorerPopupCallback(data){
 	}
 }
 ```	
+
 3. Create a function to popup the window:
 	- (Required) The external_selector_type options must be set to popup.
 	- (Required) The relative_path parameter must be set and it must point to the Ajaxplorer folder that stores your files.
