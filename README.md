@@ -27,16 +27,16 @@ How to Use
 
 Instructions assume use of jQuery on the host site.
 
-1. Place the contents of this repository into a folder called hook.popupchooser in your AjaXplorer plugin directory.
+- Place the contents of this repository into a folder called hook.popupchooser in your AjaXplorer plugin directory.
 	- If your main project is using Git, then you can submodule this repo into the main repo for easy updates.
-2. In your javascript (either inline or the file you are using to define your functions) create a callback function.
+- In your javascript (either inline or the file you are using to define your functions) create a callback function.
 	- The function should be named `ajaxplorerPopupCallback`
 	- The body of the function should do what you want with the returned data (such as set an input value).
 
 ```javascript
 function ajaxplorerPopupCallback(data){
 	if(typeof(data) === "string"){
-		$('.imagepath').val(filePath);
+		$('.imagepath').val(data);
 	}
 	else if(typeof(data) === "array"){
 		//do something with the array of data
@@ -44,7 +44,7 @@ function ajaxplorerPopupCallback(data){
 }
 ```	
 
-3. Create a function to popup the window:
+- Create a function to popup the window:
 	- (Required) The external_selector_type options must be set to popup.
 	- (Required) The relative_path parameter must be set and it must point to the Ajaxplorer folder that stores your files.
 	- (Optional) The filetypes string can be set if you want to limit the file extensions that can be returned. For instance, if you want to limit the files that can be returned to common image types, then use the format &filetypes=jpeg+jpg+gif+png. Omitting the filetypes in the URL will allow any file type to be returned to your callback function.
