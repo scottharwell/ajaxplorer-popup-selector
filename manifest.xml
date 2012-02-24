@@ -69,6 +69,10 @@
 									for(var i in items){
 										if(items[i] instanceof AjxpNode && items[i].isLeaf()){
 											var filePath = items[i].getPath();
+											if(passedData.relative_path){
+												filePath = passedData.relative_path + filePath;
+											}
+											
 											if(typeof(fileTypesArr) == "object" && fileTypesArr.length > 0){
 												for(var j = 0; j < fileTypesArr.length; j++){
 													var ext = fileTypesArr[j];
