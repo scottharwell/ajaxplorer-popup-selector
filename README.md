@@ -38,7 +38,7 @@ function ajaxplorerPopupCallback(data){
 	if(typeof(data) === "string"){
 		$('.imagepath').val(data);
 	}
-	else if(typeof(data) === "array"){
+	else if(typeof(data) === "object"){
 		//do something with the array of data
 	}
 }
